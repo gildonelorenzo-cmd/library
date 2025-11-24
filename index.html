@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Tracker</title>
+
+    <!-- Link external CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ====================== HEADER ====================== -->
+    <header class="header">
+        <h1 class="title">📚 School Library Tracker</h1>
+        <p class="subtitle">Scan → Lend → Track</p>
+    </header>
+
+    <!-- ====================== MAIN PAGE ====================== -->
+    <section id="mainPage" class="page active">
+        <h2 class="section-title">Lend a Book</h2>
+
+        <div class="card">
+            <label>📘 Scan ISBN</label>
+            <input type="text" id="isbnInput" class="input" placeholder="Scan or enter ISBN" />
+
+            <label>🎓 Scan Student ID</label>
+            <input type="text" id="studentInput" class="input" placeholder="Scan student barcode" />
+
+            <button class="btn primary" onclick="lendBook()">Lend Book</button>
+            <button class="btn" onclick="showWanted()">View Wanted List</button>
+        </div>
+
+        <h2 class="section-title">Registered Books</h2>
+        <div id="registeredBooks" class="list"></div>
+    </section>
+
+    <!-- ====================== ADMIN LOGIN (PIN KEYPAD) ====================== -->
+    <section id="adminLogin" class="page hidden">
+        <h2 class="section-title">Admin Login</h2>
+
+        <div class="pin-display" id="pinDisplay">••••</div>
+
+        <div class="keypad">
+            <button onclick="pressKey(1)">1</button>
+            <button onclick="pressKey(2)">2</button>
+            <button onclick="pressKey(3)">3</button>
+
+            <button onclick="pressKey(4)">4</button>
+            <button onclick="pressKey(5)">5</button>
+            <button onclick="pressKey(6)">6</button>
+
+            <button onclick="pressKey(7)">7</button>
+            <button onclick="pressKey(8)">8</button>
+            <button onclick="pressKey(9)">9</button>
+
+            <button onclick="clearPin()" class="danger">Clear</button>
+            <button onclick="pressKey(0)">0</button>
+            <button onclick="submitPin()" class="success">OK</button>
+        </div>
+
+        <button class="btn" onclick="goHome()">Back</button>
+    </section>
+
+    <!-- ====================== ADMIN PAGE ====================== -->
+    <section id="adminPage" class="page hidden">
+        <h2 class="section-title">Register New Book</h2>
+
+        <div class="card">
+            <label>📘 Scan ISBN to Register</label>
+            <input type="text" id="newISBN" class="input" placeholder="Scan ISBN" />
+            <button class="btn primary" onclick="registerBook()">Register Book</button>
+        </div>
+
+        <button class="btn" onclick="goHome()">Back</button>
+    </section>
+
+    <!-- ====================== WANTED PAGE ====================== -->
+    <section id="wantedPage" class="page hidden">
+        <h2 class="section-title">📅 Overdue Books</h2>
+
+        <div id="wantedList" class="list"></div>
+
+        <button class="btn" onclick="goHome()">Back</button>
+    </section>
+
+    <!-- ====================== FLOATING ADMIN BUTTON ====================== -->
+    <button id="adminBtn" class="floating-btn">💼</button>
+
+    <!-- Load external JS -->
+    <script src="script.js" defer></script>
+</body>
+</html>
