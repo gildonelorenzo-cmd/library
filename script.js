@@ -10,11 +10,10 @@ let students = {
 let books = JSON.parse(localStorage.getItem(STORAGE_KEYS.BOOKS) || "[]");
 let loans = JSON.parse(localStorage.getItem(STORAGE_KEYS.LOANS) || "[]");
 
-// ===== Save/Load =====
+// ===== Save =====
 function save(key,value){ localStorage.setItem(key, JSON.stringify(value)); }
-function load(key){ return JSON.parse(localStorage.getItem(key)||"[]"); }
 
-// ===== Page Navigation =====
+// ===== Navigation =====
 function showPage(id){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById(id).classList.add("active");
@@ -39,17 +38,24 @@ async function fetchBookInfo(isbn){
     return { title:data.title||"", author:data.authors?data.authors.map(a=>a.name).join(", "):"" };
   }catch(e){ return null; }
 }
+
 document.getElementById("registerBookBtn").addEventListener("click", async ()=>{
   const isbn = document.getElementById("adminIsbnInput").value.trim();
   let title = document.getElementById("adminTitleInput").value.trim();
-  if(!isbn) return alert("Enter ISBN");
-  if(!title){
+  let author = document.getElementById("adminAuthorInput").value.trim();
+  if(!isbn || !title || !author) return alert("ISBN, title and author are mandatory!");
+  
+  // fetch from API if fields are empty (redundant now)
+  if(!title || !author){
     const info = await fetchBookInfo(isbn);
-    if(info) title = info.title || "";
+    if(info){ title = info.title || title; author = info.author || author; }
   }
-  books.push({ isbn, title, registeredAt: new Date().toISOString() });
+  
+  books.push({ isbn, title, author, registeredAt: new Date().toISOString() });
   save(STORAGE_KEYS.BOOKS, books);
-  document.getElementById("adminIsbnInput").value=""; document.getElementById("adminTitleInput").value="";
+  document.getElementById("adminIsbnInput").value="";
+  document.getElementById("adminTitleInput").value="";
+  document.getElementById("adminAuthorInput").value="";
   alert("Book registered!");
   refreshHomePage();
 });
@@ -70,7 +76,7 @@ document.getElementById("lendBtn").addEventListener("click", ()=>{
   refreshHomePage();
 });
 
-// ===== Show Overdue =====
+// ===== Overdue =====
 function refreshWantedList(){
   const list = document.getElementById("wantedList"); list.innerHTML="";
   const now = new Date();
@@ -90,7 +96,8 @@ function refreshHomePage(){
   books.slice().reverse().forEach(b=>{
     const div = document.createElement("div"); div.className="list-item";
     const loan = loans.find(l=>l.isbn===b.isbn && !l.returned);
-    div.innerHTML = `<span>${b.title||b.isbn}</span> <span>${loan?"Lent":"Available"}</span>`;
+    let cover = `<img src="https://covers.openlibrary.org/b/isbn/${b.isbn}-S.jpg" style="width:30px;height:40px;margin-right:8px;">`;
+    div.innerHTML = `<span>${cover}${b.title} by ${b.author}</span> <span>${loan?"Lent":"Available"}</span>`;
     list.appendChild(div);
   });
 }
@@ -106,13 +113,13 @@ document.getElementById("toWantedPageBtn").addEventListener("click", ()=>{
 document.getElementById("toHomeFromLend").addEventListener("click", ()=>showPage("homePage"));
 document.getElementById("toHomeFromWanted").addEventListener("click", ()=>showPage("homePage"));
 
-// ===== Auto-fill student name alert =====
+// ===== Student auto-name alert =====
 document.getElementById("lendStudentInput").addEventListener("change", function(){
   const studentId = this.value.trim();
   if(students[studentId]) alert(`Student recognized: ${students[studentId].name}`);
 });
 
-// ===== Auto-fill ISBN info when scanned on lend page =====
+// ===== ISBN auto-fetch in lend page =====
 document.getElementById("lendIsbnInput").addEventListener("change", async function(){
   const isbn = this.value.trim();
   if(!isbn) return;
@@ -120,9 +127,9 @@ document.getElementById("lendIsbnInput").addEventListener("change", async functi
   if(!book){
     const info = await fetchBookInfo(isbn);
     if(info){
-      const register = confirm(`Book not registered. Auto-register as "${info.title}"?`);
+      const register = confirm(`Book not registered. Auto-register as "${info.title}" by "${info.author}"?`);
       if(register){
-        books.push({ isbn, title:info.title, registeredAt:new Date().toISOString() });
+        books.push({ isbn, title:info.title, author:info.author, registeredAt:new Date().toISOString() });
         save(STORAGE_KEYS.BOOKS, books);
         alert("Book auto-registered!");
         refreshHomePage();
