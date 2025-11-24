@@ -1,0 +1,234 @@
+/* ==========================================================
+   GENERAL STYLING
+   ========================================================== */
+
+body {
+    margin: 0;
+    background: #f5f7fa;
+    font-family: "Inter", Arial, sans-serif;
+    color: #222;
+    -webkit-font-smoothing: antialiased;
+}
+
+.page {
+    display: none;
+    padding: 20px;
+    animation: fade 0.3s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Fade-in animation */
+@keyframes fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+.header {
+    text-align: center;
+    padding: 30px 10px;
+    background: #ffffffaa;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.subtitle {
+    margin: 5px 0 0;
+    font-size: 16px;
+    opacity: 0.7;
+}
+
+/* ==========================================================
+   SECTIONS
+   ========================================================== */
+
+.section-title {
+    font-size: 22px;
+    margin: 20px 0 15px;
+    font-weight: 600;
+}
+
+/* ==========================================================
+   INPUT FIELDS
+   ========================================================== */
+
+.input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d0d0d0;
+    margin: 8px 0 15px;
+    font-size: 16px;
+    transition: 0.2s ease;
+}
+
+.input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 6px #4a90e233;
+    outline: none;
+}
+
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+    background: #ddd;
+}
+
+.btn:hover {
+    background: #ccc;
+}
+
+.btn.primary {
+    background: #4a90e2;
+    color: white;
+}
+
+.btn.primary:hover {
+    background: #3578c4;
+}
+
+.btn.danger {
+    background: #ff6b6b;
+    color: white;
+}
+
+.btn.success {
+    background: #4caf50;
+    color: white;
+}
+
+/* ==========================================================
+   CARDS
+   ========================================================== */
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+/* ==========================================================
+   LISTS
+   ========================================================== */
+
+.list {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.list-item {
+    padding: 14px;
+    border-bottom: 1px solid #efefef;
+    font-size: 16px;
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+/* ==========================================================
+   FLOATING ADMIN BUTTON
+   ========================================================== */
+
+.floating-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid #e0e0e0;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    transition: 0.25s ease;
+}
+
+.floating-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.85);
+}
+
+/* ==========================================================
+   PIN LOGIN KEYPAD
+   ========================================================== */
+
+.pin-display {
+    font-size: 30px;
+    text-align: center;
+    padding: 15px 0;
+    letter-spacing: 20px;
+    margin: 15px 0 25px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.keypad button {
+    padding: 18px;
+    border-radius: 12px;
+    border: none;
+    font-size: 20px;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    transition: 0.2s ease;
+}
+
+.keypad button:hover {
+    background: #f3f3f3;
+    transform: translateY(-2px);
+}
+
+.keypad .danger {
+    background: #ff6b6b;
+    color: white;
+}
+
+.keypad .success {
+    background: #4caf50;
+    color: white;
+}
+
+/* ==========================================================
+   HIDDEN
+   ========================================================== */
+
+.hidden {
+    display: none !important;
+}
