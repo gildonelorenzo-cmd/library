@@ -8,12 +8,9 @@
 </head>
 <body>
 
-  <!-- FLOATING ADMIN BUTTON -->
   <button id="adminBtn" class="floating-btn" title="Admin Login">💼</button>
 
-  <!-- ============================
-       HOME PAGE
-  ============================ -->
+  <!-- HOME PAGE -->
   <div id="homePage" class="page active">
     <header class="header">
       <h1 class="title">School Library Tracker</h1>
@@ -31,9 +28,7 @@
     </section>
   </div>
 
-  <!-- ============================
-       ADMIN LOGIN PAGE
-  ============================ -->
+  <!-- ADMIN LOGIN PAGE -->
   <div id="adminLoginPage" class="page">
     <header class="header">
       <h1 class="title">Admin Login</h1>
@@ -61,9 +56,7 @@
     </section>
   </div>
 
-  <!-- ============================
-       ADMIN PANEL PAGE
-  ============================ -->
+  <!-- ADMIN PANEL PAGE -->
   <div id="adminPanel" class="page">
     <header class="header">
       <h1 class="title">Admin Panel</h1>
@@ -71,8 +64,9 @@
     </header>
 
     <section>
-      <input id="adminIsbnInput" class="input" type="text" placeholder="Scan or type ISBN">
-      <input id="adminTitleInput" class="input" type="text" placeholder="Book title (optional)">
+      <input id="adminIsbnInput" class="input" type="text" placeholder="Scan ISBN">
+      <input id="adminTitleInput" class="input" type="text" placeholder="Book title (mandatory)">
+      <input id="adminAuthorInput" class="input" type="text" placeholder="Author (mandatory)">
       <button id="registerBookBtn" class="btn primary">Register Book</button>
     </section>
 
@@ -81,9 +75,7 @@
     </section>
   </div>
 
-  <!-- ============================
-       LEND BOOK PAGE
-  ============================ -->
+  <!-- LEND BOOK PAGE -->
   <div id="lendPage" class="page">
     <header class="header">
       <h1 class="title">Lend a Book</h1>
@@ -98,9 +90,7 @@
     </section>
   </div>
 
-  <!-- ============================
-       WANTED / OVERDUE PAGE
-  ============================ -->
+  <!-- WANTED PAGE -->
   <div id="wantedPage" class="page">
     <header class="header">
       <h1 class="title">Overdue Books</h1>
