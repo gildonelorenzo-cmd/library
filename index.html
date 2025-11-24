@@ -1,94 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Library Tracker</title>
-
-    <!-- Link external CSS -->
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Library Tracker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!-- ====================== HEADER ====================== -->
+  <!-- FLOATING ADMIN BUTTON -->
+  <button id="adminBtn" class="floating-btn" title="Admin Login">💼</button>
+
+  <!-- ============================
+       HOME PAGE
+  ============================ -->
+  <div id="homePage" class="page active">
     <header class="header">
-        <h1 class="title">📚 School Library Tracker</h1>
-        <p class="subtitle">Scan → Lend → Track</p>
+      <h1 class="title">School Library Tracker</h1>
+      <p class="subtitle">Recent registered books</p>
     </header>
 
-    <!-- ====================== MAIN PAGE ====================== -->
-    <section id="mainPage" class="page active">
-        <h2 class="section-title">Lend a Book</h2>
-
-        <div class="card">
-            <label>📘 Scan ISBN</label>
-            <input type="text" id="isbnInput" class="input" placeholder="Scan or enter ISBN" />
-
-            <label>🎓 Scan Student ID</label>
-            <input type="text" id="studentInput" class="input" placeholder="Scan student barcode" />
-
-            <button class="btn primary" onclick="lendBook()">Lend Book</button>
-            <button class="btn" onclick="showWanted()">View Wanted List</button>
-        </div>
-
-        <h2 class="section-title">Registered Books</h2>
-        <div id="registeredBooks" class="list"></div>
+    <section>
+      <h2 class="section-title">Recently Registered Books</h2>
+      <div id="homeList" class="list"></div>
     </section>
 
-    <!-- ====================== ADMIN LOGIN (PIN KEYPAD) ====================== -->
-    <section id="adminLogin" class="page hidden">
-        <h2 class="section-title">Admin Login</h2>
+    <section>
+      <button id="toLendPageBtn" class="btn primary">Go to Lend Page</button>
+      <button id="toWantedPageBtn" class="btn danger">View Overdue Books</button>
+    </section>
+  </div>
 
-        <div class="pin-display" id="pinDisplay">••••</div>
+  <!-- ============================
+       ADMIN LOGIN PAGE
+  ============================ -->
+  <div id="adminLoginPage" class="page">
+    <header class="header">
+      <h1 class="title">Admin Login</h1>
+      <p class="subtitle">Enter PIN to access admin panel</p>
+    </header>
 
-        <div class="keypad">
-            <button onclick="pressKey(1)">1</button>
-            <button onclick="pressKey(2)">2</button>
-            <button onclick="pressKey(3)">3</button>
+    <section>
+      <div id="pinDisplay" class="pin-display"></div>
+      <div class="keypad">
+        <button onclick="pressKey('1')">1</button>
+        <button onclick="pressKey('2')">2</button>
+        <button onclick="pressKey('3')">3</button>
+        <button onclick="pressKey('4')">4</button>
+        <button onclick="pressKey('5')">5</button>
+        <button onclick="pressKey('6')">6</button>
+        <button onclick="pressKey('7')">7</button>
+        <button onclick="pressKey('8')">8</button>
+        <button onclick="pressKey('9')">9</button>
+        <button class="danger" onclick="pressClear()">C</button>
+        <button onclick="pressKey('0')">0</button>
+        <button class="success" onclick="pressEnter()">✓</button>
+      </div>
 
-            <button onclick="pressKey(4)">4</button>
-            <button onclick="pressKey(5)">5</button>
-            <button onclick="pressKey(6)">6</button>
+      <button id="toHomeFromAdminLogin" class="btn ghost">Back to Home</button>
+    </section>
+  </div>
 
-            <button onclick="pressKey(7)">7</button>
-            <button onclick="pressKey(8)">8</button>
-            <button onclick="pressKey(9)">9</button>
+  <!-- ============================
+       ADMIN PANEL PAGE
+  ============================ -->
+  <div id="adminPanel" class="page">
+    <header class="header">
+      <h1 class="title">Admin Panel</h1>
+      <p class="subtitle">Register new books</p>
+    </header>
 
-            <button onclick="clearPin()" class="danger">Clear</button>
-            <button onclick="pressKey(0)">0</button>
-            <button onclick="submitPin()" class="success">OK</button>
-        </div>
-
-        <button class="btn" onclick="goHome()">Back</button>
+    <section>
+      <input id="adminIsbnInput" class="input" type="text" placeholder="Scan or type ISBN">
+      <input id="adminTitleInput" class="input" type="text" placeholder="Book title (optional)">
+      <button id="registerBookBtn" class="btn primary">Register Book</button>
     </section>
 
-    <!-- ====================== ADMIN PAGE ====================== -->
-    <section id="adminPage" class="page hidden">
-        <h2 class="section-title">Register New Book</h2>
-
-        <div class="card">
-            <label>📘 Scan ISBN to Register</label>
-            <input type="text" id="newISBN" class="input" placeholder="Scan ISBN" />
-            <button class="btn primary" onclick="registerBook()">Register Book</button>
-        </div>
-
-        <button class="btn" onclick="goHome()">Back</button>
+    <section>
+      <button id="toHomeFromAdminPanel" class="btn ghost">Back to Home</button>
     </section>
+  </div>
 
-    <!-- ====================== WANTED PAGE ====================== -->
-    <section id="wantedPage" class="page hidden">
-        <h2 class="section-title">📅 Overdue Books</h2>
+  <!-- ============================
+       LEND BOOK PAGE
+  ============================ -->
+  <div id="lendPage" class="page">
+    <header class="header">
+      <h1 class="title">Lend a Book</h1>
+      <p class="subtitle">Scan book ISBN then student ID</p>
+    </header>
 
-        <div id="wantedList" class="list"></div>
-
-        <button class="btn" onclick="goHome()">Back</button>
+    <section>
+      <input id="lendIsbnInput" class="input" type="text" placeholder="Book ISBN">
+      <input id="lendStudentInput" class="input" type="text" placeholder="Student ID">
+      <button id="lendBtn" class="btn primary">Lend Book</button>
+      <button id="toHomeFromLend" class="btn ghost">Back to Home</button>
     </section>
+  </div>
 
-    <!-- ====================== FLOATING ADMIN BUTTON ====================== -->
-    <button id="adminBtn" class="floating-btn">💼</button>
+  <!-- ============================
+       WANTED / OVERDUE PAGE
+  ============================ -->
+  <div id="wantedPage" class="page">
+    <header class="header">
+      <h1 class="title">Overdue Books</h1>
+      <p class="subtitle">Students who need to return books</p>
+    </header>
 
-    <!-- Load external JS -->
-    <script src="script.js" defer></script>
+    <section>
+      <div id="wantedList" class="list"></div>
+      <button id="toHomeFromWanted" class="btn ghost">Back to Home</button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
